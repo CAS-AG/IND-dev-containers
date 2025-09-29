@@ -7,7 +7,8 @@
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "mounts": [
     "source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached",
-    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached"
+    "source=${localEnv:HOME}/.ssh,target=/home/vscode/.ssh,type=bind,consistency=cached",
+    "source=${localEnv:HOME}/Development/convert-outlook-msg-file,target=/workspaces/convert-outlook-msg-file,type=bind,consistency=cached"
   ],
   "remoteUser": "vscode",
   "features": {
@@ -26,14 +27,14 @@
         "ms-python.debugpy"
       ],
       "settings": {
-        "python.defaultInterpreterPath": "/usr/local/bin/python",
+        "python.defaultInterpreterPath": "/home/vscode/.venv/bin/python",
         "python.analysis.typeCheckingMode": "basic",
         "python.formatting.provider": "black"
       }
     }
   },
   "forwardPorts": [8000, 8080],
-  "postCreateCommand": "python -m pip install --upgrade pip && if [ -f requirements.txt ]; then pip install -r requirements.txt; fi",
+  "postCreateCommand": "python -m pip install --upgrade pip && find /workspaces -maxdepth 2 -name requirements.txt -exec python -m pip install -r {} \\;",
   "containerEnv": {
     "PYTHONDONTWRITEBYTECODE": "1",
     "PYTHONUNBUFFERED": "1"
